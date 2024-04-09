@@ -25,16 +25,28 @@ public class Main {
             }
         }
 
-        System.out.println("quanti posti vuoi prenotare?");
-        String answer = "";
+        String comando = "";
 
-        while (evento.getPostiPrenotati() == 0) {
-            try {
-                answer = scan.nextLine();
-                int parseAnswer = Integer.parseInt(answer);
-                evento.prenota(parseAnswer);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+        while (!comando.equalsIgnoreCase("no")) {
+            System.out.println("vuoi prenotare dei posti per l'evento? si/no");
+            comando = scan.nextLine();
+            if (comando.equalsIgnoreCase("si")) {
+                System.out.println("quanti posti vuoi prenotare?");
+                String answer = "";
+
+
+                    try {
+                        answer = scan.nextLine();
+                        int parseAnswer = Integer.parseInt(answer);
+                        evento.prenota(parseAnswer);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
+                        System.out.println("quanti posti vuoi prenotare?");
+                    }
+
+                System.out.println("Ci sono prenotati: " + evento.getPostiPrenotati() + " " + "posti");
+                System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
             }
         }
 
@@ -42,25 +54,29 @@ public class Main {
         System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
 
 
-        System.out.println("vuoi disdire dei posti ? Y/N");
-        String choise = scan.nextLine();
-        String choiseClean = choise.trim();
-        switch (choiseClean) {
-            case "Y":
-                System.out.println("Quanti posti vuoi disdire?");
-                String posti = scan.nextLine();
-                int parsePosti = Integer.parseInt(posti);
-                evento.disdici(parsePosti);
-                break;
-            case "N":
-                System.out.println("Grazie e arrivederci");
-                break;
-            default:
-                break;
-        }
+        if (evento.getPostiPrenotati() > 0) {
+            String choise = "";
+            while (!choise.equalsIgnoreCase("no")) {
+                System.out.println("vuoi disdire dei posti ? si/no");
+                choise = scan.nextLine();
+                if (choise.equalsIgnoreCase("si")) {
+                    try {
+                        System.out.println("Quanti posti vuoi disdire?");
+                        String posti = scan.nextLine();
+                        int parsePosti = Integer.parseInt(posti);
+                        evento.disdici(parsePosti);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    System.out.println("Ci sono prenotati: " + evento.getPostiPrenotati() + " " + "posti");
+                    System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
 
-        System.out.println("Ci sono prenotati: " + evento.getPostiPrenotati() + " " + "posti");
-        System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
+                }
+            }
+            System.out.println("Ci sono prenotati: " + evento.getPostiPrenotati() + " " + "posti");
+            System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
+
+        }
 
         scan.close();
 
