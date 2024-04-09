@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scan = new Scanner(System.in);
         Evento evento = null;
 
@@ -60,6 +61,8 @@ public class Main {
 
         System.out.println("Ci sono prenotati: " + evento.getPostiPrenotati() + " " + "posti");
         System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
+
+        scan.close();
 
     }
 
