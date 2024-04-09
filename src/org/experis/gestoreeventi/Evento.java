@@ -14,16 +14,18 @@ public class Evento {
     // costruttore
 
 
-    public Evento(String titolo, LocalDate data, int postiTotali) throws IllegalArgumentException{
+    public Evento(String titolo, CharSequence data, int postiTotali) throws IllegalArgumentException{
 
-        if (data.isBefore(LocalDate.now())) {
+        LocalDate parseData = LocalDate.parse(data);
+        if (parseData.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("La data dell'evento non può essere passata");
         }
         if (postiTotali <= 0) {
             throw new IllegalArgumentException("Il numero di posti totali deve essere positivo");
         }
+
         this.titolo = titolo;
-        this.data = data;
+        this.data = parseData;
         this.postiTotali = postiTotali;
         this.postiPrenotati = 0;
     }
