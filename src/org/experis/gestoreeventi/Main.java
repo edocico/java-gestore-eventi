@@ -1,6 +1,7 @@
 package org.experis.gestoreeventi;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -22,6 +23,8 @@ public class Main {
                 evento = new Evento(nomeEvento, dataEvento,parseCapienza);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("La data inserita non è valida. Assicurati di inserirla nel formato corretto (YYYY-MM-DD)");
             }
         }
 
@@ -38,7 +41,8 @@ public class Main {
                     try {
                         answer = scan.nextLine();
                         int parseAnswer = Integer.parseInt(answer);
-                        evento.prenota(parseAnswer);
+                        int absAnw = Math.abs(parseAnswer);
+                        evento.prenota(absAnw);
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                         System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
@@ -64,12 +68,13 @@ public class Main {
                         System.out.println("Quanti posti vuoi disdire?");
                         String posti = scan.nextLine();
                         int parsePosti = Integer.parseInt(posti);
-                        evento.disdici(parsePosti);
+                        int absPosti = Math.abs(parsePosti);
+                        evento.disdici(absPosti);
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
                     System.out.println("Ci sono prenotati: " + evento.getPostiPrenotati() + " " + "posti");
-                    System.out.println("sono ancora disponibili: " + evento.postiDisponibili() + " posti");
+
 
                 }
             }

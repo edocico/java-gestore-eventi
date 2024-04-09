@@ -77,6 +77,7 @@ public class Evento {
         if(postiDaPrenotare > getPostiTotali() - getPostiPrenotati()) {
             throw new IllegalArgumentException("Non ci sono abbastanza posti disponibili");
         }
+
         postiPrenotati += postiDaPrenotare;
     }
 
@@ -107,7 +108,7 @@ public class Evento {
 
     @Override
     public String toString() {
-        return "Evento{" + "titolo='" + titolo + '\'' + ", data=" + data + ", postiTotali=" + postiTotali + ", postiPrenotati=" + postiPrenotati + '}';
+        return  "titolo='" + titolo + '\'' + ", data=" + data + ", postiTotali=" + postiTotali + ", postiPrenotati=" + postiPrenotati ;
     }
 
 
