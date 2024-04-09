@@ -17,7 +17,12 @@ public class Main {
             System.out.println("ora inserisci la data in cui si terrà l'evento in formato YYYY-MM-DD");
             String dataEvento = scan.nextLine();
             System.out.println("quale capienza ha il posto dove si terrà l'evento?");
-            String capienzaEvento = scan.nextLine();
+            String capienzaEvento = null;
+            try {
+                capienzaEvento = scan.nextLine();
+            } catch (Exception e) {
+                throw new NumberFormatException("deve essere un numero");
+            }
             int parseCapienza = Integer.parseInt(capienzaEvento);
             try {
                 evento = new Evento(nomeEvento, dataEvento,parseCapienza);
@@ -39,7 +44,11 @@ public class Main {
 
 
                     try {
-                        answer = scan.nextLine();
+                        try {
+                            answer = scan.nextLine();
+                        } catch (Exception e) {
+                            throw new NumberFormatException("deve essere un numero");
+                        }
                         int parseAnswer = Integer.parseInt(answer);
                         int absAnw = Math.abs(parseAnswer);
                         evento.prenota(absAnw);
@@ -66,7 +75,12 @@ public class Main {
                 if (choise.equalsIgnoreCase("si")) {
                     try {
                         System.out.println("Quanti posti vuoi disdire?");
-                        String posti = scan.nextLine();
+                        String posti = null;
+                        try {
+                            posti = scan.nextLine();
+                        } catch (Exception e) {
+                            throw new NumberFormatException("deve essere un numero");
+                        }
                         int parsePosti = Integer.parseInt(posti);
                         int absPosti = Math.abs(parsePosti);
                         evento.disdici(absPosti);
