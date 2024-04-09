@@ -18,12 +18,15 @@ public class Main {
             String dataEvento = scan.nextLine();
             System.out.println("quale capienza ha il posto dove si terrà l'evento?");
             String capienzaEvento = null;
+
+            capienzaEvento = scan.nextLine();
+
+            int parseCapienza = 0;
             try {
-                capienzaEvento = scan.nextLine();
-            } catch (Exception e) {
+                parseCapienza = Integer.parseInt(capienzaEvento);
+            } catch (NumberFormatException e) {
                 throw new NumberFormatException("deve essere un numero");
             }
-            int parseCapienza = Integer.parseInt(capienzaEvento);
             try {
                 evento = new Evento(nomeEvento, dataEvento,parseCapienza);
             } catch (IllegalArgumentException e) {
@@ -44,12 +47,15 @@ public class Main {
 
 
                     try {
+
+                        answer = scan.nextLine();
+
+                        int parseAnswer = 0;
                         try {
-                            answer = scan.nextLine();
-                        } catch (Exception e) {
+                            parseAnswer = Integer.parseInt(answer);
+                        } catch (NumberFormatException e) {
                             throw new NumberFormatException("deve essere un numero");
                         }
-                        int parseAnswer = Integer.parseInt(answer);
                         int absAnw = Math.abs(parseAnswer);
                         evento.prenota(absAnw);
                     } catch (IllegalArgumentException e) {
@@ -76,12 +82,15 @@ public class Main {
                     try {
                         System.out.println("Quanti posti vuoi disdire?");
                         String posti = null;
+
+                        posti = scan.nextLine();
+
+                        int parsePosti = 0;
                         try {
-                            posti = scan.nextLine();
-                        } catch (Exception e) {
+                            parsePosti = Integer.parseInt(posti);
+                        } catch (NumberFormatException e) {
                             throw new NumberFormatException("deve essere un numero");
                         }
-                        int parsePosti = Integer.parseInt(posti);
                         int absPosti = Math.abs(parsePosti);
                         evento.disdici(absPosti);
                     } catch (IllegalArgumentException e) {
