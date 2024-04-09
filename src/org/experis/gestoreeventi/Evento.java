@@ -10,12 +10,15 @@ public class Evento {
     private LocalDate data;
     private final int postiTotali;
     private int postiPrenotati;
+    private boolean created = false;
 
     // costruttore
 
 
     public Evento(String titolo, CharSequence data, int postiTotali) throws IllegalArgumentException{
-
+        if (titolo.isEmpty()) {
+            throw new IllegalArgumentException("il nome dell'evento non può essere vuoto");
+        }
         LocalDate parseData = LocalDate.parse(data);
         if (parseData.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("La data dell'evento non può essere passata");
@@ -28,6 +31,7 @@ public class Evento {
         this.data = parseData;
         this.postiTotali = postiTotali;
         this.postiPrenotati = 0;
+        this.created = true;
     }
 
     // setter
@@ -88,6 +92,16 @@ public class Evento {
         postiPrenotati -= postiDaDisdire;
     }
 
+    // altri metodi
+
+    public boolean isCreated() {
+        return created;
+    }
+
+    public int postiDisponibili() {
+        return getPostiTotali() - getPostiPrenotati();
+    }
+
     // to string
 
 
@@ -95,4 +109,6 @@ public class Evento {
     public String toString() {
         return "Evento{" + "titolo='" + titolo + '\'' + ", data=" + data + ", postiTotali=" + postiTotali + ", postiPrenotati=" + postiPrenotati + '}';
     }
+
+
 }
