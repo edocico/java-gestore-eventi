@@ -8,7 +8,7 @@ public class Evento {
 
     private String titolo;
     private LocalDate data;
-    private int postiTotali;
+    private final int postiTotali;
     private int postiPrenotati;
 
     // costruttore
@@ -39,13 +39,7 @@ public class Evento {
         this.data = data;
     }
 
-    public void setPostiTotali(int postiTotali) {
-        this.postiTotali = postiTotali;
-    }
 
-    public void setPostiPrenotati(int postiPrenotati) {
-        this.postiPrenotati = postiPrenotati;
-    }
 
     // getter
 
@@ -56,5 +50,47 @@ public class Evento {
 
     public LocalDate getData() {
         return data;
+    }
+
+    public int getPostiTotali() {
+        return postiTotali;
+    }
+
+    public int getPostiPrenotati() {
+        return postiPrenotati;
+    }
+
+    // metodi
+
+    // metodo prenota
+
+    public void prenota(int postiDaPrenotare) throws IllegalArgumentException{
+        if(getData().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("L'evento è già passato");
+        }
+        if(postiDaPrenotare > getPostiTotali() - getPostiPrenotati()) {
+            throw new IllegalArgumentException("Non ci sono abbastanza posti disponibili");
+        }
+        postiPrenotati += postiDaPrenotare;
+    }
+
+    // metodo disdici
+
+    public void disdici(int postiDaDisdire) throws IllegalArgumentException{
+        if(getData().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("L'evento è già passato");
+        }
+        if(postiDaDisdire > getPostiPrenotati()) {
+            throw new IllegalArgumentException("Non ci sono abbastanza posti prenotati");
+        }
+        postiPrenotati -= postiDaDisdire;
+    }
+
+    // to string
+
+
+    @Override
+    public String toString() {
+        return "Evento{" + "titolo='" + titolo + '\'' + ", data=" + data + ", postiTotali=" + postiTotali + ", postiPrenotati=" + postiPrenotati + '}';
     }
 }
